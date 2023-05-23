@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  monerod:
+    image: ghcr.io/tsumaru720/monero-docker:latest
+    container_name: monerod
+    ports:
+      - "18080:18080"
+    restart: always
+    volumes:
+      - /bitmonero:/bitmonero
