@@ -1,12 +1,14 @@
-FROM alpine:3.18.0 
+FROM ubuntu:22.04
 
 RUN \
-  apk add --no-cache gcompat && \
+  apt-get update && \
+  apt-get -y install wget bzip2 && \
   wget https://downloads.getmonero.org/cli/linux64 -O /monero.tar.bz2 && \
   tar -xjvf monero.tar.bz2 && \
   mkdir /monerod && \
   mv /$(ls -1 / | grep monero-x86_64)/* /monerod/ && \
   rm -Rf /$(ls -1 / | grep monero-x86_64) && \
-  rm /monero.tar.bz2
+  rm /monero.tar.bz2 && \
+  apt-get clean
 
 CMD ["/monerod/monerod", "--data-dir", "/bitmonero", "--log-file", "/bitmonero/bitmonero.log", "--non-interactive"]
